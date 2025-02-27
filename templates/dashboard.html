@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2>Welcome, {{ current_user.username }}</h2>
+        <div class="card mt-4">
+            <div class="card-header">
+                <h3>Recent Attendance Records</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for attendance in attendances %}
+                            <tr>
+                                <td>{{ attendance.timestamp.strftime('%Y-%m-%d') }}</td>
+                                <td>{{ attendance.timestamp.strftime('%H:%M:%S') }}</td>
+                                <td>
+                                    <span class="badge {% if attendance.status == 'check_in' %}bg-success{% else %}bg-danger{% endif %}">
+                                        {{ attendance.status }}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
